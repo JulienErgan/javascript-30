@@ -134,6 +134,19 @@
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+      const alpha = people.sort(function(lastOne, nextOne) {
+        // console.log(lastOne);
+        // const parts = lastOne.split(', ');
+        // console.log(parts);
+        // turn the arrays into variables
+          // const [last, first] = lastOne.split(', ');
+          // console.log(last, first);
+        const [aLast, aFirst] = lastOne.split(', ');
+        const [bLast, bFirst] = nextOne.split(', ');
+        return aLast > bLast ? 1 : -1;
+      });
+      console.log(alpha);
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
