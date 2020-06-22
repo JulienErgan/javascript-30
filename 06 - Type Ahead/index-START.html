@@ -17,6 +17,76 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
+const cities = [];
+
+// fetch(endpoint, function(data){
+//   console.log(data);
+// })
+
+// fetch will return a promise
+  // const prom = fetch(endpoint);
+  // console.log(prom);
+
+// wes like to call it a "blob of data"
+// fetch(endpoint).then(blob => console.log(blob));
+// fetch(endpoint).then(blob => JSON.parse(blob)); // error because the blob has to be converted from the raw data that it is in into the json
+
+// if look into the blob, under prototype there is a method called json
+fetch(endpoint)
+  .then(blob => blob.json()) // blob.json() itself is going to return another promise
+  // .then(data => console.log(data));
+  // .then(data => cities = data) //if change const cities to let cities
+  // .then(data => cities.push(data)) // problem get an array of an array
+  .then(data => cities.push(...data)); // use spread which is part of ES6
+
+
+// next step is when someone type into this box, need to run a function that
+// will take the massive array and filter it down into a subset where you can then listen for it
+function findMatches(wordToMatch, cities) {
+  return cities.filter(place => {
+    // here we need to figure out if the city or state matches what was searched
+
+    // g means it is going to be global meaning it is going to look through the entire string
+    // i means it is going be case insensitive
+    const regex = new RegExp(wordToMatch, 'gi');
+    return place.city.match(regex) || place.state.match(regex)
+    // in the browser console try findMatches('Bos', cities)
+  })
+}
+
+// to have nice commas for the population - copied and pasted from the answer
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+// create the display function
+function displayMatches() {
+  console.log(this.value);
+  // and then select the input
+  const matchArray = findMatches(this.value, cities);
+  // console.log(matchArray); // important to get the data first
+  const html = matchArray.map(place => {
+    const regex = new RegExp(this.value, 'gi');
+    const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+    const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+    return `
+      <li>
+        <span class="name">${cityName}, ${stateName}</span>
+        <span class="population">${numberWithCommas(place.population)}</span>
+      </li>
+    `;
+  }).join(''); // map returns an array so we use join to convert it into a big string
+  suggestions.innerHTML = html;
+}
+
+
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+
+
 </script>
 </body>
 </html>
