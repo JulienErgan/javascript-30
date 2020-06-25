@@ -11,6 +11,8 @@
   <script>
     const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
 
+    // in Google chrome, Inspect, right click on the paragraph, Break on > attribute modification, click on the paragraph in the browser, the source code will automatically appear
+    // in mozilla, Inspect same steps except the source code won't automatically appear. Instead go to Debugger > Sources > Main Thread > file and select the file
     function makeGreen() {
       const p = document.querySelector('p');
       p.style.color = '#BADA55';
