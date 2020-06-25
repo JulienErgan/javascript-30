@@ -83,6 +83,17 @@
     console.count('Yann');
 
     // timing
+    console.time('fetching data');
+    fetch('https://github.com/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+    });
+
+
+    // table
+
 
   </script>
 </body>
