@@ -78,6 +78,7 @@
 
     // now when we update it, the original one isn't changed
 
+
     // The same thing goes for objects, let's say we have a person object
 
     // with Objects
@@ -86,9 +87,18 @@
       age: 80
     };
 
-    // and think we make a copy:
+    // and think we make a copy, actually here we make a reference to the original object
+    const captain = person;
+    captain.number = 99;
+
+    console.log(person); // returns Object { name: 'Wes Bos', age: 80, number: 99 }
 
     // how do we take a copy instead?
+    // the way Object.assign works
+    // Object.assign(blank object, object that wish to copy all the properties from, fold in properties which to overwrite)
+    const cap2 = Object.assign({}, person, { number: 99, age: 12 });
+    console.log(cap2); // return { name: 'Wes Bos', age: 12, number: 99 }
+    console.log(person); // return { name: 'Wes Bos', age: 80 }
 
     // We will hopefully soon see the object ...spread
 
