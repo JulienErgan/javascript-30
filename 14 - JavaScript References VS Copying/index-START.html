@@ -25,16 +25,21 @@
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
-
     // You might think we can just do something like this:
+    const team = players;
+
+    console.log(players, team); // returns ['Wes', 'Sarah', 'Ryan', 'Poppy'] and ['Wes', 'Sarah', 'Ryan', 'Poppy']
 
     // however what happens when we update that array?
+    team[3] = 'Lux';
 
     // now here is the problem!
+    console.log(team); // returns ['Wes', 'Sarah', 'Ryan', 'Lux']
+    console.log(players); // returns ['Wes', 'Sarah', 'Ryan', 'Lux']
 
     // oh no - we have edited the original array too!
+    // ⚠️ Why? It's because that is an ARRAY REFERENCE, not an ARRAY COPY. They both point to the same array!
 
-    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
 
