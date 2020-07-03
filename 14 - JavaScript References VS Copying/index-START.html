@@ -101,10 +101,51 @@
     console.log(person); // return { name: 'Wes Bos', age: 80 }
 
     // We will hopefully soon see the object ...spread
-    const cap3 = {...person} // used in React ?
+    // const cap3 = {...person} // not in JavaScript yet, used in React ?
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
 
+    const wes = {
+      name: 'Wes',
+      age: 100,
+      social: {
+        twitter: '@wesbos',
+        facebook: 'wesbos.developer'
+      }
+    }
+    console.clear();
+    console.log(wes); // returns Object { name: 'Wes', age: 100, social: Object }
+
+    const dev = Object.assign({}, wes)
+
+    console.log(dev); // returns Object { name: 'Wes', age: 100, social: Object }
+
+    dev.name = 'Wesley'
+    console.log(wes); // returns Object { name: 'Wes', age: 100, social: Object }
+    console.log(dev); // returns Object { name: 'Wesley', age: 100, social: Object }
+
+    // so it made a copy, not a reference, HOWEVER...if we do:
+    console.log(dev.social); // returns Object { twitter: '@wesbos', facebook: 'wesbos.developer' }
+    dev.social.twitter = '@coolman';
+    console.log(dev.social); // returns Object { twitter: '@coolman', facebook: 'wesbos.developer' }
+    console.log(wes.social); // returns Object { twitter: '@coolman', facebook: 'wesbos.developer' }
+
+    // because when use Object.assign it only goes 1 level deep,
+    // if want to make a clone need to go online and use the function cloneDeep which will clone every level as deep as you want
+
+    // another NOT recommended way, often referenced as the poor man's cloneDeep:
+    const dev2 = JSON.parse(JSON.stringify(wes));
+    console.log(dev2); // returns Object { name: 'Wes', age: 100, social: Object }
+    dev.social.twitter = '@coolman';
+
+    console.log(dev2.social); // returns Object { twitter: '@coolman', facebook: 'wesbos.developer' }
+    console.log(wes.social); // returns Object { twitter: '@wesbos', facebook: 'wesbos.developer' }
+
+    // this time '@wesbos' has not changed, why?
+    // you can take JSON.stringify() and pass it an object, and it will return a string, not a object, it's not longer an object
+    console.log(JSON.stringify(wes)); // returns "{"name":"Wes","age":100,"social":{"twitter":"@coolman","facebook":"wesbos.developer"}}"
+    // and then do  JSON.parse() to turn it back into an object and therefore get a full copy of the object instead of a reference
+    console.log(JSON.parse(JSON.stringify(wes))); // returns Object { name: 'Wes', age: 100, social: Object }
   </script>
 
 </body>
