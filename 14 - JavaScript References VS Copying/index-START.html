@@ -43,9 +43,19 @@
 
     // So, how do we fix this? We take a copy instead!
 
-    // one way
+    // one way - using slice()
+    const team2 = players.slice();
+
+    console.log(team2); // returns ['Wes', 'Sarah', 'Ryan', 'Poppy']
+    console.log(players); // returns ['Wes', 'Sarah', 'Ryan', 'Poppy']
+
+    team2[3] = 'Lux';
+
+    console.log(team2); // returns ['Wes', 'Sarah', 'Ryan', 'Lux']
+    console.log(players); // returns ['Wes', 'Sarah', 'Ryan', 'Poppy']
 
     // or create a new array and concat the old one in
+
 
     // or use the new ES6 Spread
 
