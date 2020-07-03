@@ -31,11 +31,11 @@
     console.log(players, team); // returns ['Wes', 'Sarah', 'Ryan', 'Poppy'] and ['Wes', 'Sarah', 'Ryan', 'Poppy']
 
     // however what happens when we update that array?
-    team[3] = 'Lux';
+    team[3] = 'Alex';
 
     // now here is the problem!
-    console.log(team); // returns ['Wes', 'Sarah', 'Ryan', 'Lux']
-    console.log(players); // returns ['Wes', 'Sarah', 'Ryan', 'Lux']
+    console.log(team); // returns ['Wes', 'Sarah', 'Ryan', 'Alex']
+    console.log(players); // returns ['Wes', 'Sarah', 'Ryan', 'Alex']
 
     // oh no - we have edited the original array too!
     // ⚠️ Why? It's because that is an ARRAY REFERENCE, not an ARRAY COPY. They both point to the same array!
@@ -49,9 +49,9 @@
     console.log(team2); // returns ['Wes', 'Sarah', 'Ryan', 'Poppy']
     console.log(players); // returns ['Wes', 'Sarah', 'Ryan', 'Poppy']
 
-    team2[3] = 'Lux';
+    team2[3] = 'Marc';
 
-    console.log(team2); // returns ['Wes', 'Sarah', 'Ryan', 'Lux']
+    console.log(team2); // returns ['Wes', 'Sarah', 'Ryan', 'Marc']
     console.log(players); // returns ['Wes', 'Sarah', 'Ryan', 'Poppy']
 
 
@@ -61,6 +61,20 @@
 
 
     // or use the new ES6 Spread
+    const team4 = [...players];
+    team4[3] = 'Bernard';
+
+    console.log(team4); // returns ['Wes', 'Sarah', 'Ryan', 'Bernard']
+    console.log(players); // returns ['Wes', 'Sarah', 'Ryan', 'Poppy']
+
+    // or with Array.from
+    const team5 = Array.from(players);
+
+    team5[3] = 'Jean';
+
+    console.log(team5); // returns ['Wes', 'Sarah', 'Ryan', 'Jean']
+    console.log(players); // returns ['Wes', 'Sarah', 'Ryan', 'Poppy']
+
 
     // now when we update it, the original one isn't changed
 
