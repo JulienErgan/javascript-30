@@ -28,7 +28,8 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  const items = JSON.parse(localStorage.getItem('items')) || []; // check if there is something in localStorage or fall back on empty array
+  // const items = [];
 
   function addItem(e) {
     e.preventDefault(); // prevents the page from reloading
@@ -48,20 +49,35 @@
     }
     // console.log(item); // returns on Object { text: "fish", done: false }
     items.push(item);
-    console.log(items);
+    // console.log(items);
+    populateList(items, itemsList);
+    // localStorage.setItem('items', items);
+    // in the console items.toString() returns the string "[object Object]"
+    // but JSON.stringify(items) returns "[{"text":"fish","done":false}]"
+    localStorage.setItem('items', JSON.stringify(items));
+    // check in the browse Inspect > Application > LocalStorage
+    // and in the console localStorage.getItem('items') returns the string
+    // "[{"text":"fish","done":false},{"text":"tacos","done":false},{"text":"yum","done":false}]"
+    // and JSON.parse(localStorage.getItem('items')) returns
+    // returns an array of objects 0: {text: "fish", done: false} 1: {text: "tacos", done: false} 2: {text: "yum", done: false}
     this.reset();
   }
 
-  // function populateList(plates = [], plateList) {
-  //   platesList.innerHTML = plates.map(plate, i) => {
-  //     return `
-
-  //     `;
-  //   }
-  // }
+  function populateList(plates = [], platesList) {
+    platesList.innerHTML = plates.map((plate, i) => {
+      return `
+        <li>
+          <input type="checkbox" data-index="${i}" id="item${i}" ${plate.done ? 'checked' : ''} >
+          <label for="item${i}">${plate.text}</label>
+        </li>
+      `;
+    }).join('');
+  }
 
   // add the item when submit which is different from listening to the click event when clicking the button
   addItems.addEventListener('submit', addItem);
+
+  populateList(items, itemsList);
 
 </script>
 
