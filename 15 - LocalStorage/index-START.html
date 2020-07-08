@@ -74,10 +74,28 @@
     }).join('');
   }
 
+  function toggleDone(e) {
+    // console.log(e);
+    if (!e.target.matches('input')) return; // skip this unless it's an input
+    // console.log(e.target);
+  const el = e.target;
+  // console.log(el.dataset.index);
+  const index = el.dataset.index;
+  items[index].done = !items[index].done;
+  localStorage.setItem('items', JSON.stringify(items));
+  populateList(items, itemsList);
+  }
+
+
   // add the item when submit which is different from listening to the click event when clicking the button
   addItems.addEventListener('submit', addItem);
+  itemsList.addEventListener('click', toggleDone);
 
   populateList(items, itemsList);
+
+  // this does not work
+  // const checkboxes = document.querySelectorAll('input');
+  // checkBoxes.forEach(input => input.addEventListener('click', () => alert('hi')));
 
 </script>
 
