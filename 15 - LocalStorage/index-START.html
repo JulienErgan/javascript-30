@@ -30,6 +30,39 @@
   const itemsList = document.querySelector('.plates');
   const items = [];
 
+  function addItem(e) {
+    e.preventDefault(); // prevents the page from reloading
+    // console.log('hello');
+    // save it into an object
+    // this is the form element and we'll look into that form tag for something which has
+    // a name attribute of item
+    // very useful to use here because if we have several forms on the page
+    // can select a specific form as opposed to globally selecting it, want to narrow down the search
+    // this.querySelector('[name=item]') returns an input so need to add .value to
+    // collect what the user has typed into the input
+    const text = this.querySelector('[name=item]').value;
+    const item = {
+      // text: 'Item Name',
+      text, // ES6 shortcut for text: text,
+      done: false
+    }
+    // console.log(item); // returns on Object { text: "fish", done: false }
+    items.push(item);
+    console.log(items);
+    this.reset();
+  }
+
+  // function populateList(plates = [], plateList) {
+  //   platesList.innerHTML = plates.map(plate, i) => {
+  //     return `
+
+  //     `;
+  //   }
+  // }
+
+  // add the item when submit which is different from listening to the click event when clicking the button
+  addItems.addEventListener('submit', addItem);
+
 </script>
 
 
