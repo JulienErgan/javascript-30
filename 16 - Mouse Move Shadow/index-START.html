@@ -31,10 +31,63 @@
   h1 {
     text-shadow: 10px 10px 0 rgba(0,0,0,1);
     font-size: 100px;
+    background-color: grey;
   }
   </style>
 
-<script>
-</script>
+  <script>
+    const hero = document.querySelector('.hero');
+    const text = hero.querySelector('h1');
+    // const walk = 100; // 100 means 100 px | how many pixels, as its most, should it be stretched
+    // can play with the walk value
+    const walk = 500; // means 500px
+
+    function shadow(e) {
+      // console.log(e);
+      const { offsetWidth: width, offsetHeight: height } = hero; // equivalent to:
+      // const width = hero.offsetWidth;
+      // const height = hero.offsetHeight;
+      // offsetX and offsetY is the cursor location
+      let { offsetX: x, offsetY: y } = e;
+      // console.log(x, y);
+
+      // Note that (x, y) = (0, 0) at the top left corner of the whoah div
+      // what's happening is that, the event (cf. function shadow(e)),
+      // even though we listen to the mousemove on the hero, if they are some
+      // children elements inside of the hero, it's going to give us the (x, y) of the element that we hover
+      // consequently need to do some normalisation
+
+      // console.log(this); // returns <div class="hero">
+      // console.log(this, e.target); // returns
+      // <div class="hero"> and  <div class="hero"> when hover outside of whoah
+      // returns <div class="hero"> and <h1 contenteditable=""> when hover over whoah
+
+      if (this !== e.target) {
+        x = x + e.target.offsetLeft;
+        y = y + e.target.offsetTop;
+      }
+      // console.log(x, y);
+      // now need to configure out how far the text shadow should actually go
+
+      // calculation to set range -50 to 50 as opposed to 0 to 100. Math.round to have round numbers
+      const xWalk = Math.round((x / width * walk) - (walk / 2));
+      const yWalk = Math.round((y / width * walk) - (walk / 2));
+
+      // console.log(width, height); // returns 910 720 NB varies depending on how much cover the screen with the inspector
+      // console  .log(x, y);
+      console.log(xWalk, yWalk);
+
+      // text.style.textShadow = `${xWalk}px ${yWalk}px 0 red`;
+      // the third value in textshadow is the blur
+      text.style.textShadow = `
+      ${xWalk}px ${yWalk}px 0 rgba(255, 0, 255, 0.7),
+      ${xWalk * -1}px ${yWalk}px 0 rgba(0, 255, 255, 0.7),
+      ${yWalk}px ${xWalk * -1}px 0 rgba(0, 255, 0, 0.7),
+      ${yWalk * -1}px ${xWalk}px 0 rgba(0, 0, 255, 0.7)
+      `;
+    }
+
+    hero.addEventListener('mousemove', shadow);
+  </script>
 </body>
 </html>
