@@ -26,12 +26,12 @@
       padding: 0;
       box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
     }
-    
+
     #bands li {
       border-bottom: 1px solid #efefef;
       padding: 20px;
     }
-    
+
     #bands li:last-child {
       border-bottom: 0;
     }
@@ -45,11 +45,45 @@
 
   <ul id="bands"></ul>
 
-<script>
-const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+  <script>
+  const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+
+  function strip(brandName) {
+    return brandName.replace(/^(an |the |a )/i, '').trim();
+  }
+
+  // refactored with implicit return
+  const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
+
+  // const sortedBands = bands.sort(function(a, b) {
+  //   // refactored with ternary operator a
+  //   return (strip(a) > strip(b)) ? 1 : -1;
+  //   // if (strip(a) > strip(b)) {
+  //   //   return 1;
+  //   // } else {
+  //   //   return -1;
+  //   // }
+  // })
+
+  console.log(sortedBands);
 
 
-</script>
+  // // bands.sort();
+  // function titleName (bandNames) {
+  //   bands.forEach(band => {
+  //     // console.log(band);
+  //   if(band.startsWith('The') || band.startsWith('A') || band.startsWith('An')) {
+
+  //   }
+  //   });
+
+  // }
+  // console.log(titleName(bands));
+  // // console.log(bands.sort(titleName));
+
+  // // for each element of the array - if start with The or A or An then pop out
+
+  </script>
 
 </body>
 </html>
