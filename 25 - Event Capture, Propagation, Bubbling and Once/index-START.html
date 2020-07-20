@@ -17,9 +17,9 @@
   html {
     box-sizing: border-box;
   }
-  
-  *, *:before, *:after { 
-    box-sizing: inherit; 
+
+  *, *:before, *:after {
+    box-sizing: inherit;
   }
 
   div {
@@ -38,10 +38,34 @@
   .three {
     background: coral;
   }
+
 </style>
 
 <button></button>
+
 <script>
+
+  const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
+
+  function logText(e) {
+    console.log(this.classList.value);
+    // e.stopPropagation(); // stop bubbling
+  }
+
+  // document.body.addEventListener('click', logText);
+
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: false, // default value is false
+    once: true
+  }));
+
+  // can be useful for clicking a button only once, e.g. store checkout
+  button.addEventListener('click', () => {
+    console.log('Click !!!!');
+  }, {
+    once: true
+  });
 
 </script>
 </body>
